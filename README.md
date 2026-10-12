@@ -1,11 +1,42 @@
-<div align="center">
+# ODD MANGO — Photography & Film Portfolio
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+A bespoke, immersive portfolio website for ODD MANGO showcasing photography, motion direction, and sound-driven visual storytelling.
 
-  <h1>Built with AI Studio</h2>
+## Deploying to GitHub Pages
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+You have two easy ways to deploy this portfolio to GitHub Pages:
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+### Method 1: Automatic Deployment via GitHub Actions (Recommended)
 
-</div>
+1. Push this repository to GitHub.
+2. In your repository on GitHub, navigate to **Settings** → **Pages**.
+3. Under **Build and deployment** → **Source**, select **GitHub Actions**.
+4. That's it! Every time you push changes to `main` (or `master`), GitHub Actions will automatically build and publish your site at:
+   ```
+   https://<your-username>.github.io/<repository-name>/
+   ```
+
+### Method 2: Manual Deployment with `npm run deploy`
+
+1. If you haven't already, install dependencies:
+   ```bash
+   npm install
+   ```
+2. Run the deploy command:
+   ```bash
+   npm run deploy
+   ```
+3. In your GitHub repository **Settings** → **Pages**, set the branch to `gh-pages` and root folder `/`.
+
+## Local Development
+
+```bash
+# Start local dev server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build locally
+npm run preview
+```

@@ -1,0 +1,269 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Chamber Sans';
+  src: url('/fonts/ChamberSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chamber Sans';
+  src: url('/fonts/ChamberSans-Italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chamber Sans';
+  src: url('/fonts/ChamberSans-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chamber Sans';
+  src: url('/fonts/ChamberSans-Bold.woff2') format('woff2');
+  font-weight: 600 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chamber Sans';
+  src: url('/fonts/ChamberSans-Black.woff2') format('woff2');
+  font-weight: 800 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Alias 'Chambers Sans' to the same font family */
+@font-face {
+  font-family: 'Chambers Sans';
+  src: url('/fonts/ChamberSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chambers Sans';
+  src: url('/fonts/ChamberSans-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chambers Sans';
+  src: url('/fonts/ChamberSans-Bold.woff2') format('woff2');
+  font-weight: 600 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chambers Sans';
+  src: url('/fonts/ChamberSans-Black.woff2') format('woff2');
+  font-weight: 800 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-sans: 'Chamber Sans', 'Chambers Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+@layer base {
+  :root {
+    --cream: #f6f4ee;
+    --gray-150: #c7c4bd;
+    --gray-200: #8a8880;
+    --blue: #FF9B00;
+    --yellow: #FF9B00;
+    --accent: #FF9B00;
+    --bg: #0c0d10;
+    --font-sans: 'Chamber Sans', 'Chambers Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Roboto Mono', monospace;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-size: 17px;
+    height: 100%;
+    height: 100dvh;
+    -webkit-text-size-adjust: 100%;
+    font-family: var(--font-sans);
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--cream);
+    font-family: var(--font-sans);
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
+    overflow: hidden;
+    position: fixed;
+    inset: 0;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button, input, select, textarea, optgroup {
+    font-family: inherit;
+  }
+
+  #root {
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
+    overflow: hidden;
+  }
+}
+
+/* Rolling text animation on hover */
+.roll {
+  display: inline-block;
+  vertical-align: top;
+  overflow: hidden;
+  line-height: 1.2;
+}
+
+.roll-inner {
+  display: block;
+  position: relative;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.15, 1);
+  will-change: transform;
+}
+
+.roll-face {
+  display: block;
+  white-space: nowrap;
+}
+
+.roll-face + .roll-face {
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+
+a:hover .roll-inner,
+button:hover .roll-inner {
+  transform: translateY(-100%);
+}
+
+/* Corner bracket badge (e.g. [ DRAG ] and [ Brand Logo ]) */
+.corner-box {
+  --corner: rgba(252, 248, 239, 0.7);
+  background-color: rgba(0, 0, 0, 0.45);
+  background-image: 
+    linear-gradient(var(--corner) 0 0), linear-gradient(var(--corner) 0 0),
+    linear-gradient(var(--corner) 0 0), linear-gradient(var(--corner) 0 0),
+    linear-gradient(var(--corner) 0 0), linear-gradient(var(--corner) 0 0),
+    linear-gradient(var(--corner) 0 0), linear-gradient(var(--corner) 0 0);
+  background-position: 0 0, 0 0, 100% 0, 100% 0, 0 100%, 0 100%, 100% 100%, 100% 100%;
+  background-repeat: no-repeat;
+  background-size: 8px 1px, 1px 8px, 8px 1px, 1px 8px, 8px 1px, 1px 8px, 8px 1px, 1px 8px;
+}
+
+.corner-box-drag {
+  --corner: rgba(255, 255, 255, 0.9);
+  background-color: rgba(17, 17, 17, 0.6);
+  background-image: 
+    linear-gradient(var(--corner) 0 0), linear-gradient(var(--corner) 0 0),
+    linear-gradient(var(--corner) 0 0), linear-gradient(var(--corner) 0 0),
+    linear-gradient(var(--corner) 0 0), linear-gradient(var(--corner) 0 0),
+    linear-gradient(var(--corner) 0 0), linear-gradient(var(--corner) 0 0);
+  background-position: 0 0, 0 0, 100% 0, 100% 0, 0 100%, 0 100%, 100% 100%, 100% 100%;
+  background-repeat: no-repeat;
+  background-size: 10px 1.5px, 1.5px 10px, 10px 1.5px, 1.5px 10px, 10px 1.5px, 1.5px 10px, 10px 1.5px, 1.5px 10px;
+  backdrop-filter: blur(4px);
+}
+
+.corner-box-sm {
+  --corner: rgba(255, 255, 255, 0.9);
+  background-color: rgba(17, 17, 17, 0.7);
+  background-image: 
+    linear-gradient(var(--corner) 0 0), linear-gradient(var(--corner) 0 0),
+    linear-gradient(var(--corner) 0 0), linear-gradient(var(--corner) 0 0),
+    linear-gradient(var(--corner) 0 0), linear-gradient(var(--corner) 0 0),
+    linear-gradient(var(--corner) 0 0), linear-gradient(var(--corner) 0 0);
+  background-position: 0 0, 0 0, 100% 0, 100% 0, 0 100%, 0 100%, 100% 100%, 100% 100%;
+  background-repeat: no-repeat;
+  background-size: 6px 1px, 1px 6px, 6px 1px, 1px 6px, 6px 1px, 1px 6px, 6px 1px, 1px 6px;
+  backdrop-filter: blur(4px);
+}
+
+/* Yellow Indicator Carets */
+.caret-up {
+  width: 14px;
+  height: 9px;
+  background: var(--blue, #FF9B00);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.caret-down {
+  width: 14px;
+  height: 9px;
+  background: var(--blue, #FF9B00);
+  clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
+}
+
+.caret-right {
+  width: 8px;
+  height: 9px;
+  background: var(--blue, #FF9B00);
+  clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
+}
+
+/* Authentic Circular Fisheye Lens Aperture (Covers the whole screen in a true geometric circle) */
+.fisheye-vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 25;
+  background: radial-gradient(
+    circle 48vmin at 50% 50%,
+    transparent 0%,
+    transparent 78%,
+    rgba(0, 0, 0, 0.45) 86%,
+    rgba(0, 0, 0, 0.94) 94%,
+    #000000 98%,
+    #000000 100%
+  );
+  box-shadow: inset 0 0 80px 20px rgba(0, 0, 0, 0.9);
+  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+/* Optical image enhancement applied directly to the image in fisheye mode */
+.fisheye-optical {
+  filter: contrast(1.12) brightness(0.98) saturate(1.06);
+  transform: scale(1.02);
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease;
+}
+
+/* Subtle dark scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #111111;
+}
+::-webkit-scrollbar-thumb {
+  background: #262626;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--blue, #FF9B00);
+}
