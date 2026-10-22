@@ -42,6 +42,62 @@ import still35 from '../assets/Stills/35.webp';
 import still36 from '../assets/Stills/36.webp';
 import still37 from '../assets/Stills/37.webp';
 
+// Stills Covers from src/assets/stills-cover (High-Performance WebP)
+import stillCover3 from '../assets/stills-cover/3.webp';
+import stillCover4 from '../assets/stills-cover/4.webp';
+import stillCover5 from '../assets/stills-cover/5.webp';
+import stillCover25 from '../assets/stills-cover/25.webp';
+import stillCover28 from '../assets/stills-cover/28.webp';
+import stillCover29 from '../assets/stills-cover/29.webp';
+import stillCover30 from '../assets/stills-cover/30.webp';
+import stillCover31 from '../assets/stills-cover/31.webp';
+import stillCover32 from '../assets/stills-cover/32.webp';
+import stillCover33 from '../assets/stills-cover/33.webp';
+import stillCover34 from '../assets/stills-cover/34.webp';
+import stillCover35 from '../assets/stills-cover/35.webp';
+import stillCover36 from '../assets/stills-cover/36.webp';
+import stillCover37 from '../assets/stills-cover/37.webp';
+
+// Stills Covers Map by base filename (e.g. '3', '4', '25', etc.)
+const stillCoversMap: Record<string, string> = {
+  '3': stillCover3,
+  '4': stillCover4,
+  '5': stillCover5,
+  '25': stillCover25,
+  '28': stillCover28,
+  '29': stillCover29,
+  '30': stillCover30,
+  '31': stillCover31,
+  '32': stillCover32,
+  '33': stillCover33,
+  '34': stillCover34,
+  '35': stillCover35,
+  '36': stillCover36,
+  '37': stillCover37,
+};
+
+// Also dynamically check glob modules from both stills-cover and Stills-covers
+const dynamicStillCoverModules = import.meta.glob<{ default: string }>(
+  [
+    '../assets/stills-cover/*.{png,webp,jpg,jpeg,PNG,WEBP,JPG,JPEG}',
+    '../assets/Stills/Stills-covers/*.{png,webp,jpg,jpeg,PNG,WEBP,JPG,JPEG}',
+  ],
+  { eager: true }
+);
+
+for (const [path, mod] of Object.entries(dynamicStillCoverModules)) {
+  const match = path.match(/([^/\\]+)\.[^.]+$/);
+  if (match && mod && mod.default) {
+    const filenameNoExt = match[1];
+    stillCoversMap[filenameNoExt] = mod.default;
+  }
+}
+
+// Helper to get still cover with fallback to the still image itself
+const getStillCover = (num: string, fallback: string): string => {
+  return stillCoversMap[num] || fallback;
+};
+
 export const STUDIO_INFO: StudioInfo = {
   title: 'ODD MANGO',
   tagline: 'documenting emotion, movement and meaning.',
@@ -350,28 +406,6 @@ export const PROJECTS: Project[] = [
 
 export const STILL_PROJECTS: Project[] = [
   {
-    id: 'still-1',
-    slug: 'monochrome-silhouette',
-    name: 'Monochrome Silhouette',
-    client: 'Editorial Edition',
-    type: 'stills',
-    tag: 'editorial',
-    count: 14,
-    image: stillHome,
-    gallery: [stillHome],
-    alt: 'High-contrast monochrome silhouette photography',
-    description: 'Chiaroscuro study examining the delicate boundaries between light, architectural silhouette, and human stillness.',
-    meta: {
-      camera: 'Leica M11 Monochrom',
-      lens: 'Summilux-M 35mm f/1.4 ASPH',
-      aperture: 'f/1.4',
-      shutter: '1/250s',
-      iso: '160',
-      year: '2024',
-      location: 'Brutalist Pavilion'
-    }
-  },
-  {
     id: 'still-2',
     slug: 'ethereal-form',
     name: 'Ethereal Form',
@@ -379,7 +413,7 @@ export const STILL_PROJECTS: Project[] = [
     type: 'stills',
     tag: 'campaign',
     count: 10,
-    image: still2,
+    image: getStillCover('2', still2),
     gallery: [still2],
     alt: 'Studio portrait with subtle chiaroscuro light and tonal gradations',
     description: 'Minimalist studio exploration celebrating sculptural posture, tactile fabric folds, and tonal intimacy.',
@@ -401,7 +435,7 @@ export const STILL_PROJECTS: Project[] = [
     type: 'stills',
     tag: 'personal',
     count: 15,
-    image: still3,
+    image: getStillCover('3', still3),
     gallery: [still3],
     alt: 'Misty landscape bathed in soft ambient twilight',
     description: 'Quiet meditative frames exploring distant horizons, fog layers, and the shifting spectrum of dusk.',
@@ -423,7 +457,7 @@ export const STILL_PROJECTS: Project[] = [
     type: 'stills',
     tag: 'campaign',
     count: 16,
-    image: still4,
+    image: getStillCover('4', still4),
     gallery: [still4],
     alt: 'Dynamic capture of motion blur and athletic grace',
     description: 'High-speed capture freezing human agility into an expressive composition of velocity and rhythm.',
@@ -445,7 +479,7 @@ export const STILL_PROJECTS: Project[] = [
     type: 'stills',
     tag: 'editorial',
     count: 9,
-    image: still5,
+    image: getStillCover('5', still5),
     gallery: [still5],
     alt: 'Carefully composed still life with soft directional lighting',
     description: 'Contemplative still life compositions balancing negative space, muted ceramics, and delicate shadows.',
@@ -467,7 +501,7 @@ export const STILL_PROJECTS: Project[] = [
     type: 'stills',
     tag: 'editorial',
     count: 11,
-    image: still25,
+    image: getStillCover('25', still25),
     gallery: [still25],
     alt: 'Intimate candid portrait highlighting genuine expressions and natural grain',
     description: 'Unposed portraiture documenting authentic human moments with analog warmth and raw depth.',
@@ -489,7 +523,7 @@ export const STILL_PROJECTS: Project[] = [
     type: 'stills',
     tag: 'personal',
     count: 14,
-    image: still28,
+    image: getStillCover('28', still28),
     gallery: [still28],
     alt: 'Warm low-angle sun rays skimming across textured surfaces',
     description: 'Luminous light studies chasing late-afternoon amber beams across organic materials and rough surfaces.',
@@ -511,7 +545,7 @@ export const STILL_PROJECTS: Project[] = [
     type: 'stills',
     tag: 'campaign',
     count: 13,
-    image: still29,
+    image: getStillCover('29', still29),
     gallery: [still29],
     alt: 'Prismatic light refraction cast across deep black backdrop',
     description: 'Optical experiments utilizing custom glass prisms to slice incandescent beams into sculptural ribbons.',
@@ -533,7 +567,7 @@ export const STILL_PROJECTS: Project[] = [
     type: 'stills',
     tag: 'editorial',
     count: 12,
-    image: still30,
+    image: getStillCover('30', still30),
     gallery: [still30],
     alt: 'Deep street-level contrast between glowing pavement and towering silhouettes',
     description: 'Graphic street photography framed by colossal concrete pillars and dramatic morning backlighting.',
@@ -555,7 +589,7 @@ export const STILL_PROJECTS: Project[] = [
     type: 'stills',
     tag: 'personal',
     count: 7,
-    image: still31,
+    image: getStillCover('31', still31),
     gallery: [still31],
     alt: 'Minimalist composition with subtle textures and gentle negative space',
     description: 'Poetic stillness captured through isolated subject placement and expansive negative breathing room.',
@@ -577,7 +611,7 @@ export const STILL_PROJECTS: Project[] = [
     type: 'stills',
     tag: 'commercial',
     count: 10,
-    image: still32,
+    image: getStillCover('32', still32),
     gallery: [still32],
     alt: 'Industrial surfaces, gritty metals and intense chiaroscuro contrast',
     description: 'Tactile exploration of weathered industrial steel, oxidized textures, and aggressive specular highlights.',
@@ -599,7 +633,7 @@ export const STILL_PROJECTS: Project[] = [
     type: 'stills',
     tag: 'personal',
     count: 9,
-    image: still33,
+    image: getStillCover('33', still33),
     gallery: [still33],
     alt: 'Moody night photography illuminated by solitary neon luminescence',
     description: 'Cinematic nocturne frames capturing foggy streets, wet asphalt reflections, and distant sodium halos.',
@@ -621,7 +655,7 @@ export const STILL_PROJECTS: Project[] = [
     type: 'stills',
     tag: 'editorial',
     count: 12,
-    image: still34,
+    image: getStillCover('34', still34),
     gallery: [still34],
     alt: 'Rich velvety tones and nuanced shadow details in medium format black and white',
     description: 'High-fashion editorial exploring tactile textile weaves, structural draping, and velvety dark midtones.',
@@ -643,7 +677,7 @@ export const STILL_PROJECTS: Project[] = [
     type: 'stills',
     tag: 'campaign',
     count: 15,
-    image: still35,
+    image: getStillCover('35', still35),
     gallery: [still35],
     alt: 'Flagship fine-art still celebrating stillness and pure optical depth',
     description: 'The defining still signature piece representing the Odd Mango photographic philosophy: documenting emotion, movement, and meaning.',
@@ -665,7 +699,7 @@ export const STILL_PROJECTS: Project[] = [
     type: 'stills',
     tag: 'personal',
     count: 12,
-    image: still36,
+    image: getStillCover('36', still36),
     gallery: [still36],
     alt: 'Moody metropolitan architecture and dramatic diagonal shadows',
     description: 'Atmospheric urban documentation capturing geometry, glass reflections, and solitary human presence.',
@@ -687,7 +721,7 @@ export const STILL_PROJECTS: Project[] = [
     type: 'stills',
     tag: 'editorial',
     count: 8,
-    image: still37,
+    image: getStillCover('37', still37),
     gallery: [still37],
     alt: 'Abstract concrete forms, sharp angles and sun-drenched surfaces',
     description: 'A study in modernist architecture exploring clean lines, raking sunlight, and textured concrete surfaces.',

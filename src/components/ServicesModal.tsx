@@ -88,14 +88,6 @@ const SERVICES_DATA: ServiceItem[] = [
   },
   {
     number: '02',
-    phase: 'ACCELERATION',
-    title: 'Social Media Content',
-    tagline: 'Keep your brand moving.',
-    description: 'Reels and short-form content built to hold attention and stay unmistakably yours.',
-    deliverables: ['High-Retention Reels', 'Content Architecture', 'Visual Series & Sound'],
-  },
-  {
-    number: '03',
     phase: 'AMPLIFICATION',
     title: 'Commercials & Campaigns',
     tagline: 'Turn ideas into something people remember.',
@@ -103,7 +95,7 @@ const SERVICES_DATA: ServiceItem[] = [
     deliverables: ['Campaign Narrative', 'Concept Development', 'Broadcast & Digital Cuts'],
   },
   {
-    number: '04',
+    number: '03',
     phase: 'EXPERIENCE',
     title: 'Product & Lifestyle Films',
     tagline: 'Make what you sell look irresistible.',
@@ -111,7 +103,7 @@ const SERVICES_DATA: ServiceItem[] = [
     deliverables: ['Sensory Macro Visuals', 'Atmospheric Lighting', 'World-Building'],
   },
   {
-    number: '05',
+    number: '04',
     phase: 'CREDIBILITY',
     title: 'Corporate & Institutional Films',
     tagline: 'Say what you do differently.',
@@ -119,12 +111,20 @@ const SERVICES_DATA: ServiceItem[] = [
     deliverables: ['Investor & Partner Stories', 'Culture Documentaries', 'Executive Comms'],
   },
   {
-    number: '06',
+    number: '05',
     phase: 'ELEVATION',
     title: 'Photography & Creative Design',
     tagline: 'Make every touchpoint feel like your brand.',
     description: 'Photography and design that extend your visual identity beyond video.',
     deliverables: ['Editorial Stills Sets', 'Visual Identity Cohesion', 'Campaign Key Art'],
+  },
+  {
+    number: '06',
+    phase: 'ACCELERATION',
+    title: 'Social Media Content',
+    tagline: 'Keep your brand moving.',
+    description: 'Reels and short-form content built to hold attention and stay unmistakably yours.',
+    deliverables: ['High-Retention Reels', 'Content Architecture', 'Visual Series & Sound'],
   },
 ];
 
@@ -316,10 +316,10 @@ export const ServicesModal: React.FC<ServicesModalProps> = ({
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.9, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
                   onClick={handleInquire}
-                  className="px-5 py-2.5 border border-white/20 hover:border-[#FF9B00] text-[#fcf8ef] hover:text-[#FF9B00] transition-all cursor-pointer font-mono text-xs uppercase tracking-wider flex items-center gap-2 group shrink-0"
+                  className="px-5 py-2.5 bg-[#FF9B00] hover:bg-white text-black transition-all cursor-pointer font-mono text-xs uppercase tracking-wider font-bold flex items-center gap-2 group shrink-0 rounded-sm shadow-md"
                 >
                   <span>Contact Us</span>
-                  <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#FF9B00] transition-transform" />
+                  <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </motion.button>
               </div>
 
@@ -412,49 +412,93 @@ export const ServicesModal: React.FC<ServicesModalProps> = ({
                                 }`}
                               />
 
-                              {/* Service Card (No Glow, Clean Orange Theme) */}
+                              {/* Service Card: Black until scrolled to, then yellow with black text */}
                               <div
                                 className={`p-6 sm:p-7 rounded-sm relative overflow-hidden transition-all duration-500 ease-out border ${
                                   isActive
-                                    ? 'bg-neutral-900/60 border-[#FF9B00]/60 opacity-100 scale-100'
-                                    : 'bg-neutral-950/40 border-white/5 opacity-35 filter grayscale(30%) scale-[0.98]'
-                                } hover:border-[#FF9B00] hover:opacity-100`}
+                                    ? 'bg-[#FF9B00] text-black border-[#FF9B00] shadow-[0_14px_40px_rgba(255,155,0,0.22)] scale-100 opacity-100'
+                                    : 'bg-[#121214] text-[#fcf8ef] border-neutral-800/80 shadow-none scale-[0.98] opacity-85'
+                                } hover:bg-[#FF9B00] hover:text-black hover:border-[#FF9B00] hover:opacity-100 hover:scale-100 group`}
                               >
                                 {/* Card Header */}
-                                <div className="flex items-center justify-between font-mono text-xs uppercase tracking-wider mb-4 pb-3 border-b border-white/6">
+                                <div
+                                  className={`flex items-center justify-between font-mono text-xs uppercase tracking-wider mb-4 pb-3 border-b transition-colors duration-500 ${
+                                    isActive ? 'border-black/15' : 'border-white/10 group-hover:border-black/15'
+                                  }`}
+                                >
                                   <div className="flex items-center gap-2">
-                                    <span className={isActive ? 'text-[#FF9B00] font-bold' : 'text-neutral-500'}>
+                                    <span
+                                      className={`font-extrabold transition-colors duration-500 ${
+                                        isActive ? 'text-black' : 'text-neutral-500 group-hover:text-black'
+                                      }`}
+                                    >
                                       {service.number}
                                     </span>
-                                    <span className="text-neutral-600">—</span>
-                                    <h2 className="text-sm sm:text-base font-bold text-[#fcf8ef] tracking-tight">
+                                    <span
+                                      className={`font-bold transition-colors duration-500 ${
+                                        isActive ? 'text-black/40' : 'text-neutral-600 group-hover:text-black/40'
+                                      }`}
+                                    >
+                                      —
+                                    </span>
+                                    <h2
+                                      className={`text-sm sm:text-base font-extrabold tracking-tight transition-colors duration-500 ${
+                                        isActive ? 'text-black' : 'text-[#fcf8ef] group-hover:text-black'
+                                      }`}
+                                    >
                                       {service.title}
                                     </h2>
                                   </div>
-                                  <span className={`text-[10px] tracking-widest ${isActive ? 'text-[#FF9B00]' : 'text-neutral-600'}`}>
+                                  <span
+                                    className={`text-[10px] tracking-widest font-mono font-bold transition-colors duration-500 ${
+                                      isActive ? 'text-black/75' : 'text-neutral-500 group-hover:text-black/75'
+                                    }`}
+                                  >
                                     {service.phase}
                                   </span>
                                 </div>
 
                                 {/* Tagline */}
-                                <p className="text-base sm:text-[17px] font-semibold text-[#fcf8ef] leading-snug mb-3">
+                                <p
+                                  className={`text-base sm:text-[17px] font-extrabold leading-snug mb-3 transition-colors duration-500 ${
+                                    isActive ? 'text-black' : 'text-[#fcf8ef] group-hover:text-black'
+                                  }`}
+                                >
                                   {service.tagline}
                                 </p>
 
                                 {/* Description */}
-                                <p className="text-xs sm:text-sm text-[#cbc7c2] leading-relaxed font-normal mb-5">
+                                <p
+                                  className={`text-xs sm:text-sm leading-relaxed font-medium mb-5 transition-colors duration-500 ${
+                                    isActive ? 'text-black/85' : 'text-[#cbc7c2] group-hover:text-black/85'
+                                  }`}
+                                >
                                   {service.description}
                                 </p>
 
                                 {/* Deliverables / Scope Preview */}
-                                <div className="pt-3 border-t border-white/5 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[11px] font-mono">
+                                <div
+                                  className={`pt-3 border-t flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[11px] font-mono transition-colors duration-500 ${
+                                    isActive ? 'border-black/15' : 'border-white/10 group-hover:border-black/15'
+                                  }`}
+                                >
                                   {service.deliverables.map((item, dIdx) => (
                                     <React.Fragment key={item}>
-                                      <span className={isActive ? 'text-neutral-300' : 'text-neutral-600'}>
+                                      <span
+                                        className={`font-semibold transition-colors duration-500 ${
+                                          isActive ? 'text-black/85' : 'text-neutral-400 group-hover:text-black/85'
+                                        }`}
+                                      >
                                         {item}
                                       </span>
                                       {dIdx < service.deliverables.length - 1 && (
-                                        <span className="text-neutral-700">·</span>
+                                        <span
+                                          className={`font-bold transition-colors duration-500 ${
+                                            isActive ? 'text-black/35' : 'text-neutral-600 group-hover:text-black/35'
+                                          }`}
+                                        >
+                                          ·
+                                        </span>
                                       )}
                                     </React.Fragment>
                                   ))}
@@ -477,49 +521,93 @@ export const ServicesModal: React.FC<ServicesModalProps> = ({
                                 }`}
                               />
 
-                              {/* Service Card (No Glow, Clean Orange Theme) */}
+                              {/* Service Card: Black until scrolled to, then yellow with black text */}
                               <div
                                 className={`p-6 sm:p-7 rounded-sm relative overflow-hidden transition-all duration-500 ease-out border ${
                                   isActive
-                                    ? 'bg-neutral-900/60 border-[#FF9B00]/60 opacity-100 scale-100'
-                                    : 'bg-neutral-950/40 border-white/5 opacity-35 filter grayscale(30%) scale-[0.98]'
-                                } hover:border-[#FF9B00] hover:opacity-100`}
+                                    ? 'bg-[#FF9B00] text-black border-[#FF9B00] shadow-[0_14px_40px_rgba(255,155,0,0.22)] scale-100 opacity-100'
+                                    : 'bg-[#121214] text-[#fcf8ef] border-neutral-800/80 shadow-none scale-[0.98] opacity-85'
+                                } hover:bg-[#FF9B00] hover:text-black hover:border-[#FF9B00] hover:opacity-100 hover:scale-100 group`}
                               >
                                 {/* Card Header */}
-                                <div className="flex items-center justify-between font-mono text-xs uppercase tracking-wider mb-4 pb-3 border-b border-white/6">
+                                <div
+                                  className={`flex items-center justify-between font-mono text-xs uppercase tracking-wider mb-4 pb-3 border-b transition-colors duration-500 ${
+                                    isActive ? 'border-black/15' : 'border-white/10 group-hover:border-black/15'
+                                  }`}
+                                >
                                   <div className="flex items-center gap-2">
-                                    <span className={isActive ? 'text-[#FF9B00] font-bold' : 'text-neutral-500'}>
+                                    <span
+                                      className={`font-extrabold transition-colors duration-500 ${
+                                        isActive ? 'text-black' : 'text-neutral-500 group-hover:text-black'
+                                      }`}
+                                    >
                                       {service.number}
                                     </span>
-                                    <span className="text-neutral-600">—</span>
-                                    <h2 className="text-sm sm:text-base font-bold text-[#fcf8ef] tracking-tight">
+                                    <span
+                                      className={`font-bold transition-colors duration-500 ${
+                                        isActive ? 'text-black/40' : 'text-neutral-600 group-hover:text-black/40'
+                                      }`}
+                                    >
+                                      —
+                                    </span>
+                                    <h2
+                                      className={`text-sm sm:text-base font-extrabold tracking-tight transition-colors duration-500 ${
+                                        isActive ? 'text-black' : 'text-[#fcf8ef] group-hover:text-black'
+                                      }`}
+                                    >
                                       {service.title}
                                     </h2>
                                   </div>
-                                  <span className={`text-[10px] tracking-widest ${isActive ? 'text-[#FF9B00]' : 'text-neutral-600'}`}>
+                                  <span
+                                    className={`text-[10px] tracking-widest font-mono font-bold transition-colors duration-500 ${
+                                      isActive ? 'text-black/75' : 'text-neutral-500 group-hover:text-black/75'
+                                    }`}
+                                  >
                                     {service.phase}
                                   </span>
                                 </div>
 
                                 {/* Tagline */}
-                                <p className="text-base sm:text-[17px] font-semibold text-[#fcf8ef] leading-snug mb-3">
+                                <p
+                                  className={`text-base sm:text-[17px] font-extrabold leading-snug mb-3 transition-colors duration-500 ${
+                                    isActive ? 'text-black' : 'text-[#fcf8ef] group-hover:text-black'
+                                  }`}
+                                >
                                   {service.tagline}
                                 </p>
 
                                 {/* Description */}
-                                <p className="text-xs sm:text-sm text-[#cbc7c2] leading-relaxed font-normal mb-5">
+                                <p
+                                  className={`text-xs sm:text-sm leading-relaxed font-medium mb-5 transition-colors duration-500 ${
+                                    isActive ? 'text-black/85' : 'text-[#cbc7c2] group-hover:text-black/85'
+                                  }`}
+                                >
                                   {service.description}
                                 </p>
 
                                 {/* Deliverables / Scope Preview */}
-                                <div className="pt-3 border-t border-white/5 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[11px] font-mono">
+                                <div
+                                  className={`pt-3 border-t flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[11px] font-mono transition-colors duration-500 ${
+                                    isActive ? 'border-black/15' : 'border-white/10 group-hover:border-black/15'
+                                  }`}
+                                >
                                   {service.deliverables.map((item, dIdx) => (
                                     <React.Fragment key={item}>
-                                      <span className={isActive ? 'text-neutral-300' : 'text-neutral-600'}>
+                                      <span
+                                        className={`font-semibold transition-colors duration-500 ${
+                                          isActive ? 'text-black/85' : 'text-neutral-400 group-hover:text-black/85'
+                                        }`}
+                                      >
                                         {item}
                                       </span>
                                       {dIdx < service.deliverables.length - 1 && (
-                                        <span className="text-neutral-700">·</span>
+                                        <span
+                                          className={`font-bold transition-colors duration-500 ${
+                                            isActive ? 'text-black/35' : 'text-neutral-600 group-hover:text-black/35'
+                                          }`}
+                                        >
+                                          ·
+                                        </span>
                                       )}
                                     </React.Fragment>
                                   ))}
@@ -531,13 +619,7 @@ export const ServicesModal: React.FC<ServicesModalProps> = ({
 
                         {/* MOBILE VERSION: Clean right-offset card connected to the mobile line */}
                         <div className="md:hidden pl-12 sm:pl-14 w-full">
-                          <div
-                            className={`p-5 sm:p-6 rounded-sm relative overflow-hidden transition-all duration-500 ease-out border ${
-                              isActive
-                                ? 'bg-neutral-900/60 border-[#FF9B00]/60 opacity-100'
-                                : 'bg-neutral-950/40 border-white/5 opacity-35 filter grayscale(30%)'
-                            } hover:border-[#FF9B00]`}
-                          >
+                          <div className="relative group">
                             {/* Horizontal small connector on mobile */}
                             <div
                               className={`absolute left-[-1.5rem] top-8 h-[1.5px] w-6 pointer-events-none transition-colors duration-500 ${
@@ -545,44 +627,96 @@ export const ServicesModal: React.FC<ServicesModalProps> = ({
                               }`}
                             />
 
-                            {/* Card Header */}
-                            <div className="flex items-center justify-between font-mono text-xs uppercase tracking-wider mb-3 pb-2.5 border-b border-white/6">
-                              <div className="flex items-center gap-2">
-                                <span className={isActive ? 'text-[#FF9B00] font-bold' : 'text-neutral-500'}>
-                                  {service.number}
-                                </span>
-                                <span className="text-neutral-600">—</span>
-                                <h2 className="text-sm font-bold text-[#fcf8ef] tracking-tight">
-                                  {service.title}
-                                </h2>
-                              </div>
-                              <span className={`text-[10px] tracking-widest ${isActive ? 'text-[#FF9B00]' : 'text-neutral-600'}`}>
-                                {service.phase}
-                              </span>
-                            </div>
-
-                            {/* Tagline */}
-                            <p className="text-sm sm:text-base font-semibold text-[#fcf8ef] leading-snug mb-2.5">
-                              {service.tagline}
-                            </p>
-
-                            {/* Description */}
-                            <p className="text-xs text-[#cbc7c2] leading-relaxed font-normal mb-3.5">
-                              {service.description}
-                            </p>
-
-                            {/* Deliverables / Scope Preview */}
-                            <div className="pt-2.5 border-t border-white/5 flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] font-mono">
-                              {service.deliverables.map((item, dIdx) => (
-                                <React.Fragment key={item}>
-                                  <span className={isActive ? 'text-neutral-300' : 'text-neutral-600'}>
-                                    {item}
+                            <div
+                              className={`p-5 sm:p-6 rounded-sm relative overflow-hidden transition-all duration-500 ease-out border ${
+                                isActive
+                                  ? 'bg-[#FF9B00] text-black border-[#FF9B00] shadow-[0_14px_40px_rgba(255,155,0,0.22)] opacity-100'
+                                  : 'bg-[#121214] text-[#fcf8ef] border-neutral-800/80 shadow-none opacity-85'
+                              } hover:bg-[#FF9B00] hover:text-black hover:border-[#FF9B00] hover:opacity-100`}
+                            >
+                              {/* Card Header */}
+                              <div
+                                className={`flex items-center justify-between font-mono text-xs uppercase tracking-wider mb-3 pb-2.5 border-b transition-colors duration-500 ${
+                                  isActive ? 'border-black/15' : 'border-white/10 group-hover:border-black/15'
+                                }`}
+                              >
+                                <div className="flex items-center gap-2">
+                                  <span
+                                    className={`font-extrabold transition-colors duration-500 ${
+                                      isActive ? 'text-black' : 'text-neutral-500 group-hover:text-black'
+                                    }`}
+                                  >
+                                    {service.number}
                                   </span>
-                                  {dIdx < service.deliverables.length - 1 && (
-                                    <span className="text-neutral-700">·</span>
-                                  )}
-                                </React.Fragment>
-                              ))}
+                                  <span
+                                    className={`font-bold transition-colors duration-500 ${
+                                      isActive ? 'text-black/40' : 'text-neutral-600 group-hover:text-black/40'
+                                    }`}
+                                  >
+                                    —
+                                  </span>
+                                  <h2
+                                    className={`text-sm font-extrabold tracking-tight transition-colors duration-500 ${
+                                      isActive ? 'text-black' : 'text-[#fcf8ef] group-hover:text-black'
+                                    }`}
+                                  >
+                                    {service.title}
+                                  </h2>
+                                </div>
+                                <span
+                                  className={`text-[10px] tracking-widest font-mono font-bold transition-colors duration-500 ${
+                                    isActive ? 'text-black/75' : 'text-neutral-500 group-hover:text-black/75'
+                                  }`}
+                                >
+                                  {service.phase}
+                                </span>
+                              </div>
+
+                              {/* Tagline */}
+                              <p
+                                className={`text-sm sm:text-base font-extrabold leading-snug mb-2.5 transition-colors duration-500 ${
+                                  isActive ? 'text-black' : 'text-[#fcf8ef] group-hover:text-black'
+                                }`}
+                              >
+                                {service.tagline}
+                              </p>
+
+                              {/* Description */}
+                              <p
+                                className={`text-xs leading-relaxed font-medium mb-3.5 transition-colors duration-500 ${
+                                  isActive ? 'text-black/85' : 'text-[#cbc7c2] group-hover:text-black/85'
+                                }`}
+                              >
+                                {service.description}
+                              </p>
+
+                              {/* Deliverables / Scope Preview */}
+                              <div
+                                className={`pt-2.5 border-t flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] font-mono transition-colors duration-500 ${
+                                  isActive ? 'border-black/15' : 'border-white/10 group-hover:border-black/15'
+                                }`}
+                              >
+                                {service.deliverables.map((item, dIdx) => (
+                                  <React.Fragment key={item}>
+                                    <span
+                                      className={`font-semibold transition-colors duration-500 ${
+                                        isActive ? 'text-black/85' : 'text-neutral-400 group-hover:text-black/85'
+                                      }`}
+                                    >
+                                      {item}
+                                    </span>
+                                    {dIdx < service.deliverables.length - 1 && (
+                                      <span
+                                        className={`font-bold transition-colors duration-500 ${
+                                          isActive ? 'text-black/35' : 'text-neutral-600 group-hover:text-black/35'
+                                        }`}
+                                      >
+                                        ·
+                                      </span>
+                                    )}
+                                  </React.Fragment>
+                                ))}
+                              </div>
                             </div>
                           </div>
                         </div>

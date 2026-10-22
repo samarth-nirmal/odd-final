@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X } from 'lucide-react';
 import { Project } from '../types';
@@ -28,6 +28,8 @@ export const FullscreenVideoModal: React.FC<FullscreenVideoModalProps> = ({
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const progressFillRef = useRef<HTMLDivElement | null>(null);
   const isCancelledRef = useRef(false);
+  const isClosingRef = useRef(false);
+  const audioFadeAnimRef = useRef<number | null>(null);
   const hasTriggeredNextRef = useRef(false);
   const accumulatedProgressRef = useRef(0);
   const progressAnimRef = useRef<number | null>(null);
@@ -104,56 +106,176 @@ export const FullscreenVideoModal: React.FC<FullscreenVideoModalProps> = ({
     return () => cancelAnimationFrame(animId);
   }, []);
 
-  // Safely and immediately stop all video and audio playback
-  const stopPlayback = () => {
+  // Cancel any active audio fade animation
+  const cancelAudioFade = useCallback(() => {
+    if (audioFadeAnimRef.current !== null) {
+      cancelAnimationFrame(audioFadeAnimRef.current);
+      audioFadeAnimRef.current = null;
+    }
+  }, []);
+
+  // Smooth cinematic audio fade-in
+  const fadeInAudio = useCallback((duration = 1000, targetVolume = 1) => {
+    cancelAudioFade();
+    const video = videoRef.current;
+    if (!video || isCancelledRef.current || isClosingRef.current) return;
+
+    if (video.muted) {
+      video.muted = false;
+    }
+
+    const startVolume = typeof video.volume === 'number' ? video.volume : 0;
+    const startTime = performance.now();
+
+    const step = (now: number) => {
+      const v = videoRef.current;
+      if (!v || isCancelledRef.current || isClosingRef.current) return;
+
+      const elapsed = now - startTime;
+      const progress = Math.min(1, Math.max(0, elapsed / duration));
+      // Sinusoidal ease-out for pleasant natural loudness curve
+      const eased = Math.sin((progress * Math.PI) / 2);
+      const currentVol = startVolume + (targetVolume - startVolume) * eased;
+
+      try {
+        v.volume = Math.min(1, Math.max(0, currentVol));
+      } catch {
+        // ignore
+      }
+
+      if (progress < 1) {
+        audioFadeAnimRef.current = requestAnimationFrame(step);
+      } else {
+        audioFadeAnimRef.current = null;
+        try {
+          v.volume = targetVolume;
+        } catch {
+          // ignore
+        }
+      }
+    };
+
+    audioFadeAnimRef.current = requestAnimationFrame(step);
+  }, [cancelAudioFade]);
+
+  // Smooth cinematic audio fade-out
+  const fadeOutAudio = useCallback((duration = 600, onComplete?: () => void) => {
+    cancelAudioFade();
+    const video = videoRef.current;
+    if (!video) {
+      onComplete?.();
+      return;
+    }
+
+    const startVolume = typeof video.volume === 'number' ? video.volume : 1;
+    if (startVolume <= 0.01 || video.muted) {
+      try {
+        video.volume = 0;
+      } catch {
+        // ignore
+      }
+      onComplete?.();
+      return;
+    }
+
+    const startTime = performance.now();
+
+    const step = (now: number) => {
+      const v = videoRef.current;
+      if (!v) {
+        onComplete?.();
+        return;
+      }
+
+      const elapsed = now - startTime;
+      const progress = Math.min(1, Math.max(0, elapsed / duration));
+      // Cosine ease-out falloff for gentle, click-free dissolution
+      const eased = Math.cos((progress * Math.PI) / 2);
+      const currentVol = startVolume * eased;
+
+      try {
+        v.volume = Math.min(1, Math.max(0, currentVol));
+      } catch {
+        // ignore
+      }
+
+      if (progress < 1) {
+        audioFadeAnimRef.current = requestAnimationFrame(step);
+      } else {
+        audioFadeAnimRef.current = null;
+        try {
+          v.volume = 0;
+        } catch {
+          // ignore
+        }
+        onComplete?.();
+      }
+    };
+
+    audioFadeAnimRef.current = requestAnimationFrame(step);
+  }, [cancelAudioFade]);
+
+  // Safely stop all video and audio playback
+  const stopPlayback = useCallback(() => {
     isCancelledRef.current = true;
+    cancelAudioFade();
     const video = videoRef.current;
     if (video) {
       try {
         video.pause();
         video.muted = true;
+        video.volume = 0;
         video.currentTime = 0;
       } catch {
         // ignore
       }
     }
     setIsPlaying(false);
-  };
+  }, [cancelAudioFade]);
 
-  // Controlled playback with user-specified audio preference
+  // Controlled playback with fade-in on start
   useEffect(() => {
     isCancelledRef.current = false;
+    isClosingRef.current = false;
     const video = videoRef.current;
     if (!video) return;
 
-    video.muted = !soundOn;
-    setIsMuted(!soundOn);
+    // Start with volume 0 to prevent audio popping
+    video.volume = 0;
+    const shouldBeMuted = !soundOn;
+    video.muted = shouldBeMuted;
+    setIsMuted(shouldBeMuted);
 
     const playPromise = video.play();
     if (playPromise !== undefined) {
       playPromise
         .then(() => {
-          if (isCancelledRef.current) {
+          if (isCancelledRef.current || isClosingRef.current) {
             video.pause();
             video.muted = true;
             return;
           }
           setIsPlaying(true);
+          // Audio fade-in when video starts playing
+          if (!shouldBeMuted) {
+            fadeInAudio(1000, 1);
+          }
         })
         .catch((err: unknown) => {
           // If aborted or closing, do NOT retry playing
-          if (isCancelledRef.current) return;
+          if (isCancelledRef.current || isClosingRef.current) return;
           const errorName = (err as { name?: string })?.name;
           if (errorName === 'AbortError') return;
 
           // If browser policy rejects unmuted autoplay, fallback to muted autoplay
-          if (video && !isCancelledRef.current) {
+          if (video && !isCancelledRef.current && !isClosingRef.current) {
             video.muted = true;
+            video.volume = 0;
             setIsMuted(true);
             video
               .play()
               .then(() => {
-                if (isCancelledRef.current) {
+                if (isCancelledRef.current || isClosingRef.current) {
                   video.pause();
                   video.muted = true;
                 } else {
@@ -166,40 +288,59 @@ export const FullscreenVideoModal: React.FC<FullscreenVideoModalProps> = ({
     }
 
     return () => {
-      isCancelledRef.current = true;
-      if (video) {
-        try {
-          video.pause();
-          video.muted = true;
-        } catch {
-          // ignore
+      cancelAudioFade();
+    };
+  }, [project, fadeInAudio, cancelAudioFade]);
+
+  // Handle external soundOn prop changes gracefully
+  const prevSoundOnRef = useRef(soundOn);
+  useEffect(() => {
+    if (prevSoundOnRef.current !== soundOn) {
+      prevSoundOnRef.current = soundOn;
+      setIsMuted(!soundOn);
+      if (videoRef.current && !isClosingRef.current) {
+        if (!soundOn) {
+          fadeOutAudio(350, () => {
+            if (videoRef.current) videoRef.current.muted = true;
+          });
+        } else {
+          videoRef.current.muted = false;
+          videoRef.current.volume = 0;
+          videoRef.current.play().catch(() => {});
+          fadeInAudio(800, 1);
         }
       }
-    };
-  }, [soundOn, project]);
+    }
+  }, [soundOn, fadeInAudio, fadeOutAudio]);
 
   // Clean up video stream on unmount
   useEffect(() => {
     return () => {
+      isCancelledRef.current = true;
+      cancelAudioFade();
       stopPlayback();
     };
-  }, []);
+  }, [stopPlayback, cancelAudioFade]);
 
   // Stop playback immediately if project becomes null
   useEffect(() => {
     if (!project) {
       stopPlayback();
     }
-  }, [project]);
+  }, [project, stopPlayback]);
 
-  // Handle modal close with guaranteed video and audio termination
+  // Handle modal close with fade out effect for audio
   const handleClose = () => {
-    stopPlayback();
+    if (isClosingRef.current) return;
+    isClosingRef.current = true;
     playTick();
+    fadeOutAudio(650, () => {
+      stopPlayback();
+    });
     onClose();
   };
 
-  // Trigger transition to next project
+  // Trigger transition to next project with smooth audio fade out
   const handleTriggerNext = () => {
     if (hasTriggeredNextRef.current) return;
     hasTriggeredNextRef.current = true;
@@ -209,11 +350,13 @@ export const FullscreenVideoModal: React.FC<FullscreenVideoModalProps> = ({
       progressAnimRef.current = null;
     }
     setNextFillProgress(1);
-    stopPlayback();
     playTick();
-    if (onNextProject) {
-      onNextProject();
-    }
+    fadeOutAudio(400, () => {
+      stopPlayback();
+      if (onNextProject) {
+        onNextProject();
+      }
+    });
   };
 
   // Reset next video prompt whenever project changes
@@ -322,10 +465,19 @@ export const FullscreenVideoModal: React.FC<FullscreenVideoModalProps> = ({
     setIsMuted(nextMuted);
 
     if (videoRef.current) {
-      videoRef.current.muted = nextMuted;
-      if (!nextMuted) {
-        videoRef.current.volume = 1;
+      if (nextMuted) {
+        // User muted: smoothly fade down to zero then set muted flag
+        fadeOutAudio(350, () => {
+          if (videoRef.current) {
+            videoRef.current.muted = true;
+          }
+        });
+      } else {
+        // User unmuted: unmute with volume 0 and smoothly fade up to 1
+        videoRef.current.muted = false;
+        videoRef.current.volume = 0;
         videoRef.current.play().catch(() => {});
+        fadeInAudio(800, 1);
       }
     }
 
@@ -340,10 +492,22 @@ export const FullscreenVideoModal: React.FC<FullscreenVideoModalProps> = ({
     if (!videoRef.current) return;
 
     if (videoRef.current.paused) {
-      videoRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+      videoRef.current
+        .play()
+        .then(() => {
+          setIsPlaying(true);
+          if (!isMuted && soundOn) {
+            fadeInAudio(600, 1);
+          }
+        })
+        .catch(() => {});
     } else {
-      videoRef.current.pause();
-      setIsPlaying(false);
+      fadeOutAudio(250, () => {
+        if (videoRef.current) {
+          videoRef.current.pause();
+          setIsPlaying(false);
+        }
+      });
     }
   };
 
@@ -416,7 +580,12 @@ export const FullscreenVideoModal: React.FC<FullscreenVideoModalProps> = ({
         }
         onAnimationStart={(definition) => {
           if (definition === 'exit') {
-            stopPlayback();
+            if (!isClosingRef.current) {
+              isClosingRef.current = true;
+              fadeOutAudio(650, () => {
+                stopPlayback();
+              });
+            }
           }
         }}
         transition={{

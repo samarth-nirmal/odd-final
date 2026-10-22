@@ -181,7 +181,7 @@ export const StillGalleryModal: React.FC<StillGalleryModalProps> = ({
 
   const currentImageUrl =
     activeProjects.length > 1
-      ? currentActiveProject.image || currentGallery[0] || ''
+      ? currentGallery[0] || currentActiveProject.image || ''
       : currentGallery[gallerySubIndex] || currentActiveProject.image || '';
 
   return (
@@ -242,7 +242,7 @@ export const StillGalleryModal: React.FC<StillGalleryModalProps> = ({
               playTick();
               onClose();
             }}
-            className="text-3xl sm:text-4xl font-extrabold text-black tracking-tighter leading-none hover:opacity-70 transition-opacity cursor-pointer flex items-baseline"
+            className="text-3xl sm:text-4xl font-extrabold text-[#FF9B00] tracking-tighter leading-none hover:opacity-80 transition-opacity cursor-pointer flex items-baseline"
           >
             <span>ODD MANGO</span>
             <sup className="text-xs sm:text-sm font-bold ml-0.5 relative -top-3">®</sup>
@@ -356,12 +356,7 @@ export const StillGalleryModal: React.FC<StillGalleryModalProps> = ({
           onClick={(e) => e.stopPropagation()}
           className="w-full flex flex-col justify-end cursor-default z-30"
         >
-          <div className="px-6 sm:px-10 pb-3 flex items-center justify-between text-xs font-mono font-medium tracking-wider text-[#737373]">
-            {/* Bottom-Left: Dismiss hint */}
-            <div className="hidden md:block w-36 text-[11px] text-[#999999]">
-              ESC / CLICK SIDES TO CLOSE
-            </div>
-
+          <div className="px-6 sm:px-10 pb-3 flex items-center justify-center text-xs font-mono font-medium tracking-wider text-[#737373]">
             {/* Bottom-Center: Slide Counter */}
             <div className="flex flex-col items-center leading-none text-xs font-bold text-black mx-auto select-none">
               <span>{String(displayIndex + 1).padStart(2, '0')}</span>
@@ -369,11 +364,8 @@ export const StillGalleryModal: React.FC<StillGalleryModalProps> = ({
               <span>{String(totalCount).padStart(2, '0')}</span>
             </div>
 
-            {/* Bottom-Right: Sound toggle & Browse hint */}
-            <div className="hidden md:flex items-center gap-6 text-[11px]">
-              {totalCount > 1 && (
-                <span className="text-[#999999]">USE ARROWS TO BROWSE</span>
-              )}
+            {/* Bottom-Right: Sound toggle */}
+            <div className="absolute right-6 sm:right-10 flex items-center text-[11px]">
               <button
                 id="gallery-sound-toggle"
                 onClick={() => {

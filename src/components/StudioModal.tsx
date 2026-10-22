@@ -132,31 +132,30 @@ export const StudioModal: React.FC<StudioModalProps> = ({
             className="fixed inset-0 pointer-events-auto flex flex-col justify-between bg-[#0e0e0e] px-6 sm:px-12 md:px-16 lg:px-24 xl:px-32 2xl:px-40 pt-24 sm:pt-28 pb-12 overflow-y-auto select-none"
             onClick={onClose}
           >
-          {/* Main Content: Bio, Logo, Clients & Founder */}
           <div
             className="max-w-5xl w-full mx-auto my-auto py-4 text-[#fcf8ef] flex flex-col items-center gap-8 md:gap-10"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* 2. Studio Logo: Centered and enlarged */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.85, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 1.0, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-              className="w-full flex justify-center items-center mb-2 sm:mb-4"
-            >
-              <img
-                src={logoYellow}
-                alt="ODD MANGO Logo"
-                loading="lazy"
-                decoding="async"
-                className="w-48 sm:w-56 md:w-64 lg:w-72 h-auto max-w-full block object-contain filter drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]"
-              />
-            </motion.div>
-
-            {/* Content Columns: Left (Bio & Clients) + Right (Founder) */}
+            {/* Content Columns: Left (Logo, Bio & Clients) + Right (Founder) */}
             <div className="w-full flex flex-col md:flex-row items-start gap-10 md:gap-14">
-              {/* Left Column: Typography + Bio + Clients */}
+              {/* Left Column: Logo + Typography + Bio + Clients */}
               <div className="flex-1 flex flex-col items-start">
+                {/* 2. Studio Logo */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.85, y: 20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={{ duration: 1.0, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                  className="w-full flex justify-start items-center mb-6"
+                >
+                  <img
+                    src={logoYellow}
+                    alt="ODD MANGO Logo"
+                    loading="lazy"
+                    decoding="async"
+                    className="w-40 sm:w-48 md:w-56 h-auto max-w-full block object-contain filter drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]"
+                  />
+                </motion.div>
+
                 {/* 3. Main Headline: Appears third (at 0.7s) */}
                 <motion.h1
                   initial={{ opacity: 0, y: 20 }}
@@ -202,7 +201,7 @@ export const StudioModal: React.FC<StudioModalProps> = ({
                 initial={{ opacity: 0, scale: 0.92, x: 24 }}
                 animate={{ opacity: 1, scale: 1, x: 0 }}
                 transition={{ duration: 1.1, delay: 0.85, ease: [0.16, 1, 0.3, 1] }}
-                className="w-full sm:w-72 md:w-80 shrink-0 flex flex-col gap-3"
+                className="w-full sm:w-72 md:w-80 shrink-0 flex flex-col gap-3 md:-mt-12"
               >
                 <div className="relative aspect-[4/5] w-full overflow-hidden rounded-sm bg-neutral-900 border border-white/10 hover:border-[#FF9B00]/40 transition-colors shadow-2xl">
                   <img

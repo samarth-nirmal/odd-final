@@ -27,7 +27,7 @@ export default function App() {
   
   // Independent index tracking for video slider and stills slider
   const [videoIndex, setVideoIndex] = useState(0);
-  const [stillsIndex, setStillsIndex] = useState(0);
+  const [stillsIndex, setStillsIndex] = useState(5);
   const [listIndex, setListIndex] = useState(0);
 
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -209,16 +209,15 @@ export default function App() {
         {/* Top Minimal Chrome Navigation */}
         <motion.div
           animate={{
-            opacity: showSoundIntro ? 0 : 1,
+            opacity: showSoundIntro || Boolean(selectedProject) ? 0 : 1,
             y: showSoundIntro ? -16 : 0,
           }}
           transition={{
-            duration: 1.0,
-            delay: showSoundIntro ? 0 : 0.15,
+            duration: 0.3,
             ease: [0.16, 1, 0.3, 1],
           }}
           className={`fixed top-0 inset-x-0 z-[30000] pointer-events-none ${
-            selectedProject ? 'hidden md:block' : ''
+            selectedProject ? '!hidden hidden pointer-events-none' : ''
           }`}
         >
           <Header

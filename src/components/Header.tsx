@@ -148,7 +148,7 @@ export const Header: React.FC<HeaderProps> = ({
     <>
       <header
         className={`fixed top-0 inset-x-0 z-[30000] px-6 sm:px-10 pt-[max(1.25rem,calc(env(safe-area-inset-top)+0.5rem))] pb-3 sm:pb-3.5 pointer-events-none flex items-center justify-between text-sm sm:text-base font-medium tracking-tight transition-all duration-300 ease-out ${
-          isVideoOpen ? 'hidden md:flex' : ''
+          isVideoOpen ? '!hidden hidden pointer-events-none' : ''
         } ${
           isScrolled && !isHomePage
             ? 'bg-[#0c0d10]/85 backdrop-blur-md shadow-[0_10px_30px_-10px_rgba(0,0,0,0.85)] border-b border-neutral-800/60'
