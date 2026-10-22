@@ -4,6 +4,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { STUDIO_INFO } from '../data/projects';
 import { playTick } from '../services/audio';
 import { isModalTransitionActive } from '../services/modalTransition';
+import logoTransparent from '../assets/Logo/logo transparent.png';
 
 interface ServicesModalProps {
   isOpen: boolean;
@@ -285,14 +286,16 @@ export const ServicesModal: React.FC<ServicesModalProps> = ({
                   </motion.p>
 
                   {/* Main Headline */}
-                  <motion.h1
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1.0, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                    className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight uppercase leading-[1.08] text-[#fcf8ef] mb-5"
-                  >
-                    We make brands worth watching<span className="text-[#FF9B00]">.</span>
-                  </motion.h1>
+                  <div className="flex items-start justify-between">
+                    <motion.h1
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 1.0, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                      className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight uppercase leading-[1.08] text-[#fcf8ef] mb-5"
+                    >
+                      We make brands worth watching<span className="text-[#FF9B00]">.</span>
+                    </motion.h1>
+                  </div>
 
                   {/* Intro Paragraphs */}
                   <motion.div
