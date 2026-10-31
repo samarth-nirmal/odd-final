@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+﻿import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X } from 'lucide-react';
 import { Project } from '../types';
@@ -648,14 +648,14 @@ export const FullscreenVideoModal: React.FC<FullscreenVideoModalProps> = ({
 
         {/* UPPER NAVBAR: Positioned cleanly OVER the fullscreen video */}
         <header className="relative z-30 px-6 sm:px-10 pt-[max(1.5rem,calc(env(safe-area-inset-top)+0.5rem))] pb-8 flex items-start justify-between text-sm sm:text-base font-medium tracking-tight bg-gradient-to-b from-black/85 via-black/40 to-transparent pointer-events-none">
-          {/* Top-Left: RS® Logo */}
+          {/* Top-Left: RSÂ® Logo */}
           <button
             id="video-home-btn"
             onClick={handleClose}
             className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#fcf8ef] tracking-tighter leading-none hover:opacity-75 transition-opacity cursor-pointer flex items-baseline pointer-events-auto drop-shadow-md"
           >
             <span>ODD MANGO</span>
-            <sup className="text-xs sm:text-sm font-bold ml-0.5 relative -top-3">®</sup>
+            <sup className="text-xs sm:text-sm font-bold ml-0.5 relative -top-3">Â®</sup>
           </button>
 
           {/* Top-Center: Project Name & Client */}
@@ -664,7 +664,7 @@ export const FullscreenVideoModal: React.FC<FullscreenVideoModalProps> = ({
               {project.name}
             </span>
             <span className="text-[11px] sm:text-xs font-semibold tracking-widest uppercase text-[#cbc7c2]/80 mt-0.5 drop-shadow truncate max-w-full">
-              {project.client} {project.tag ? `• ${project.tag}` : ''}
+              {project.client} {project.tag ? `â€¢ ${project.tag}` : ''}
             </span>
           </div>
 
@@ -690,6 +690,7 @@ export const FullscreenVideoModal: React.FC<FullscreenVideoModalProps> = ({
 
         {/* BOTTOM CONTROLS: Overlaid ON the video with Sound and Playback options */}
         <footer className="relative z-30 px-6 sm:px-10 pb-[max(1.75rem,calc(env(safe-area-inset-bottom)+1rem))] pt-12 flex flex-col justify-end gap-3 bg-gradient-to-t from-black/90 via-black/45 to-transparent pointer-events-none">
+
           {/* Main Controls Row */}
           <div className="flex items-center justify-between text-xs sm:text-sm font-mono tracking-tight pointer-events-auto">
             {/* Bottom-Left: Sound Option + Play/Pause */}
@@ -725,8 +726,13 @@ export const FullscreenVideoModal: React.FC<FullscreenVideoModalProps> = ({
               </button>
             </div>
 
-            {/* Bottom-Center: Project Name & Type */}
-            <div className="hidden md:flex flex-col items-center justify-center text-center">
+            {/* Bottom-Center: Short Description + Project Type */}
+            <div className="hidden md:flex flex-col items-center justify-center text-center gap-1 -translate-x-16">
+              {project.shortDescription && (
+                <span className="inline-block bg-black/80 border border-white/15 px-4 py-1.5 text-[12px] sm:text-[13px] font-mono text-[#fcf8ef] tracking-widest uppercase">
+                  {project.shortDescription}
+                </span>
+              )}
               <span className="text-xs font-mono uppercase text-[#cbc7c2]/70 tracking-wider">
                 {project.type.toUpperCase()}[{formatTime(currentTime)} / {formatTime(duration)}]
               </span>

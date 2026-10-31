@@ -1,4 +1,4 @@
-import { Project, StudioInfo } from '../types';
+﻿import { Project, StudioInfo } from '../types';
 
 // Hero Videos from src/assets/Hero Videos
 import ashianaAmodhVideo from '../assets/Hero Videos/Ashiana Amodh.mp4';
@@ -101,7 +101,7 @@ const getStillCover = (num: string, fallback: string): string => {
 export const STUDIO_INFO: StudioInfo = {
   title: 'ODD MANGO',
   tagline: 'documenting emotion, movement and meaning.',
-  bio: 'A boutique production studio with unyielding passion for storytelling. Photography and film documenting emotion, movement and meaning — for brands and culture.',
+  bio: 'A boutique production studio with unyielding passion for storytelling. Photography and film documenting emotion, movement and meaning â€” for brands and culture.',
   since: '2016',
   location: 'Pune, Maharashtra',
   email: 'oddmangomedia@gmail.com',
@@ -206,6 +206,7 @@ export const PROJECTS: Project[] = [
     slug: 'avicore-1',
     name: 'Avicore 1',
     client: 'Avicore Dynamics',
+    shortDescription: 'Home Cinema · Shoot & Edit',
     type: 'motion',
     tag: 'commercial',
     count: 9,
@@ -231,6 +232,7 @@ export const PROJECTS: Project[] = [
     slug: 'avicore-2',
     name: 'Avicore 2',
     client: 'Avicore Dynamics',
+    shortDescription: 'Home Cinema · Shoot & Edit',
     type: 'motion',
     tag: 'campaign',
     count: 12,
@@ -256,6 +258,7 @@ export const PROJECTS: Project[] = [
     slug: 'avicore-3',
     name: 'Avicore 3',
     client: 'Avicore Dynamics',
+    shortDescription: 'AVCore · Shoot & Edit',
     type: 'motion',
     tag: 'editorial',
     count: 8,
@@ -281,6 +284,7 @@ export const PROJECTS: Project[] = [
     slug: 'avicore-4',
     name: 'Avicore 4',
     client: 'Avicore Dynamics',
+    shortDescription: 'AVCore · Shoot & Edit',
     type: 'motion',
     tag: 'campaign',
     count: 10,

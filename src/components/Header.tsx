@@ -193,8 +193,8 @@ export const Header: React.FC<HeaderProps> = ({
                   >
                     <span className="roll">
                       <span className="roll-inner">
-                        <span className="roll-face">{mode}</span>
-                        <span className="roll-face text-white">{mode}</span>
+                        <span className="roll-face">{mode === 'slider' ? 'motion' : mode}</span>
+                        <span className="roll-face text-white">{mode === 'slider' ? 'motion' : mode}</span>
                       </span>
                     </span>
                   </button>
@@ -385,7 +385,7 @@ export const Header: React.FC<HeaderProps> = ({
                       }`}
                     >
                       <div className="flex flex-col items-start">
-                        <span>Works</span>
+                        <span>Motion</span>
                         {!hasActiveModal && (
                           <div className="w-12 h-[2px] bg-[#FF9B00] mt-1" />
                         )}
@@ -494,7 +494,7 @@ export const Header: React.FC<HeaderProps> = ({
                                   : 'text-[#c7c4bd] hover:text-white'
                               }`}
                             >
-                              {mode}
+                              {mode === 'slider' ? 'motion' : mode}
                             </button>
                           );
                         })}

@@ -136,9 +136,9 @@ export const StudioModal: React.FC<StudioModalProps> = ({
             className="max-w-5xl w-full mx-auto my-auto py-4 text-[#fcf8ef] flex flex-col items-center gap-8 md:gap-10"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Content Columns: Left (Logo, Bio & Clients) + Right (Founder) */}
+            {/* Content Columns: Left (Logo, Bio) + Right (Founder) */}
             <div className="w-full flex flex-col md:flex-row items-start gap-10 md:gap-14">
-              {/* Left Column: Logo + Typography + Bio + Clients */}
+              {/* Left Column: Logo + Typography + Bio */}
               <div className="flex-1 flex flex-col items-start">
                 {/* 2. Studio Logo */}
                 <motion.div
@@ -176,24 +176,6 @@ export const StudioModal: React.FC<StudioModalProps> = ({
                   {STUDIO_INFO.bio}
                 </motion.p>
 
-                {/* 6. Client Roster: Appears sixth (at 1.2s) */}
-                <motion.div
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1.0, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                  className="pt-6 border-t border-neutral-800/60 w-full"
-                >
-                  <p className="text-[11px] font-mono text-neutral-400 uppercase tracking-widest mb-3">
-                    <span>CLIENTS & COLLABORATORS</span>
-                  </p>
-                  <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs sm:text-sm uppercase font-mono text-[#cbc7c2]">
-                    {STUDIO_INFO.trustedClients.map((client) => (
-                      <span key={client.slug} className="hover:text-[#FF9B00] transition-colors cursor-default">
-                        {client.name}
-                      </span>
-                    ))}
-                  </div>
-                </motion.div>
               </div>
 
               {/* Right Column: Founder Portrait — Appears fifth (at 0.85s) */}

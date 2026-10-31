@@ -27,6 +27,7 @@ export interface Project {
   gallery: string[];
   video?: string;
   isReel?: boolean;
+  shortDescription?: string;
   alt: string;
   description: string;
   meta: CameraMetadata;
