@@ -193,8 +193,8 @@ export const Header: React.FC<HeaderProps> = ({
                   >
                     <span className="roll">
                       <span className="roll-inner">
-                        <span className="roll-face">{mode === 'slider' ? 'motion' : mode}</span>
-                        <span className="roll-face text-white">{mode === 'slider' ? 'motion' : mode}</span>
+                        <span className="roll-face">{mode === 'slider' ? 'Films' : mode === 'stills' ? 'Graphics' : mode}</span>
+                        <span className="roll-face text-white">{mode === 'slider' ? 'Films' : mode === 'stills' ? 'Graphics' : mode}</span>
                       </span>
                     </span>
                   </button>
@@ -385,7 +385,7 @@ export const Header: React.FC<HeaderProps> = ({
                       }`}
                     >
                       <div className="flex flex-col items-start">
-                        <span>Motion</span>
+                        <span>Films</span>
                         {!hasActiveModal && (
                           <div className="w-12 h-[2px] bg-[#FF9B00] mt-1" />
                         )}
@@ -462,7 +462,6 @@ export const Header: React.FC<HeaderProps> = ({
                       <ArrowUpRight className={`transition-all ${isContactOpen ? 'opacity-100 text-[#FF9B00]' : 'opacity-40 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1'}`} size={28} />
                     </button>
                   </div>
-
                   {/* Status & Options Card */}
                   <div className="pt-6 border-t border-white/10 flex flex-col gap-4">
                     {/* View Mode Toggle for Mobile */}
@@ -494,13 +493,12 @@ export const Header: React.FC<HeaderProps> = ({
                                   : 'text-[#c7c4bd] hover:text-white'
                               }`}
                             >
-                              {mode === 'slider' ? 'motion' : mode}
+                              {mode === 'slider' ? 'Films' : mode === 'stills' ? 'Graphics' : mode}
                             </button>
                           );
                         })}
                       </div>
                     </div>
-
                     {/* Sound Toggle */}
                     <div className="flex items-center justify-between font-mono text-xs uppercase tracking-wider text-[#c7c4bd]">
                       <span>Audio Feedback</span>

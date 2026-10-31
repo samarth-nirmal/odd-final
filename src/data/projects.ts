@@ -1,16 +1,20 @@
-﻿import { Project, StudioInfo } from '../types';
+import { Project, StudioInfo } from '../types';
 
 // Hero Videos from src/assets/Hero Videos
 import ashianaAmodhVideo from '../assets/Hero Videos/Ashiana Amodh.mp4';
-import atmosphereVideo from '../assets/Hero Videos/Atmosphere.mp4';
+// import atmosphereVideo from '../assets/Hero Videos/Atmosphere.mp4';
 import avicoreVideo from '../assets/Hero Videos/Avicore.mp4';
-import avicore2Video from '../assets/Hero Videos/Avicore2.mp4';
+// import avicore2Video from '../assets/Hero Videos/Avicore2.mp4';
 import avicore3Video from '../assets/Hero Videos/Avicore3.mp4';
 import avicore4Video from '../assets/Hero Videos/Avicore4.mp4';
 import cafeVideo from '../assets/Hero Videos/cafe.mp4';
 import fiddlecraftVideo from '../assets/Hero Videos/fiddlecraft.mp4';
-import starfishVideo from '../assets/Hero Videos/Starfish Showreel.mp4';
-import titanVideo from '../assets/Hero Videos/titan.mp4';
+// import starfishVideo from '../assets/Hero Videos/Starfish Showreel.mp4';
+// import titanVideo from '../assets/Hero Videos/titan.mp4';
+import amboxLogisticsVideo from '../assets/Hero Videos/Ambox Logistics.mp4';
+import avalancheRefineriesVideo from '../assets/Hero Videos/Avalanche Refineries.mp4';
+import fomPuneVideo from '../assets/Hero Videos/fom pune.mp4';
+import ashianaHousingVideo from '../assets/Hero Videos/Ashiana Housing.mp4';
 
 // Hero Covers from src/assets/Hero Covers (High-Performance WebP)
 import ashianaAmodhCover from '../assets/Hero Covers/Ashiana Amodh.webp';
@@ -23,6 +27,10 @@ import cafeCover from '../assets/Hero Covers/cafe.webp';
 import fiddlecraftCover from '../assets/Hero Covers/fiddlecraft.webp';
 import starfishCover from '../assets/Hero Covers/Starfish.webp';
 import titanCover from '../assets/Hero Covers/titan.webp';
+import amboxLogisticsCover from '../assets/Hero Covers/ambox logictics.webp';
+import avalancheRefineriesCover from '../assets/Hero Covers/avalanche refineries.webp';
+import fomPuneCover from '../assets/Hero Covers/fom pune.webp';
+import ashianaHousingCover from '../assets/Hero Covers/ashiana housing.webp';
 
 // Stills from src/assets/Stills (High-Performance WebP)
 import stillHome from '../assets/Stills/Home.webp';
@@ -101,7 +109,7 @@ const getStillCover = (num: string, fallback: string): string => {
 export const STUDIO_INFO: StudioInfo = {
   title: 'ODD MANGO',
   tagline: 'documenting emotion, movement and meaning.',
-  bio: 'A boutique production studio with unyielding passion for storytelling. Photography and film documenting emotion, movement and meaning â€” for brands and culture.',
+  bio: 'A boutique production studio with unyielding passion for storytelling. Photography and film documenting emotion, movement and meaning — for brands and culture.',
   since: '2016',
   location: 'Pune, Maharashtra',
   email: 'oddmangomedia@gmail.com',
@@ -150,6 +158,71 @@ export const TEAM_MEMBERS: TeamMember[] = [
 ];
 
 export const PROJECTS: Project[] = [
+  {
+    id: '11',
+    slug: 'ambox-logistics',
+    name: 'Ambox Logistics',
+    client: 'Ambox',
+    type: 'motion',
+    tag: 'commercial',
+    count: 1,
+    duration: 30,
+    image: amboxLogisticsCover,
+    video: amboxLogisticsVideo,
+    gallery: [amboxLogisticsCover],
+    alt: 'Ambox Logistics corporate film',
+    description: 'Corporate logistics solutions showcased through dynamic motion.',
+    meta: { camera: 'N/A', lens: 'N/A', aperture: 'N/A', shutter: 'N/A', iso: 'N/A', year: '2024', location: 'N/A' }
+  },
+  {
+    id: '12',
+    slug: 'avalanche-refineries',
+    name: 'Avalanche Refineries',
+    client: 'Avalanche',
+    type: 'motion',
+    tag: 'commercial',
+    count: 1,
+    duration: 30,
+    image: avalancheRefineriesCover,
+    video: avalancheRefineriesVideo,
+    gallery: [avalancheRefineriesCover],
+    alt: 'Avalanche Refineries corporate film',
+    description: 'Industrial refinery processes captured in cinematic motion.',
+    shortDescription: 'Avyol Brand launch film : Post Production',
+    meta: { camera: 'N/A', lens: 'N/A', aperture: 'N/A', shutter: 'N/A', iso: 'N/A', year: '2024', location: 'N/A' }
+  },
+  {
+    id: '13',
+    slug: 'fom-pune',
+    name: 'FOM Pune',
+    client: 'FOM',
+    type: 'motion',
+    tag: 'events',
+    count: 1,
+    duration: 30,
+    image: fomPuneCover,
+    video: fomPuneVideo,
+    gallery: [fomPuneCover],
+    alt: 'FOM Pune event film',
+    description: 'Dynamic event coverage and cultural motion production.',
+    meta: { camera: 'N/A', lens: 'N/A', aperture: 'N/A', shutter: 'N/A', iso: 'N/A', year: '2024', location: 'N/A' }
+  },
+  {
+    id: '14',
+    slug: 'ashiana-housing',
+    name: 'Ashiana Housing',
+    client: 'Ashiana',
+    type: 'motion',
+    tag: 'commercial',
+    count: 1,
+    duration: 30,
+    image: ashianaHousingCover,
+    video: ashianaHousingVideo,
+    gallery: [ashianaHousingCover],
+    alt: 'Ashiana Housing commercial film',
+    description: 'Residential community showcase with high-definition motion.',
+    meta: { camera: 'N/A', lens: 'N/A', aperture: 'N/A', shutter: 'N/A', iso: 'N/A', year: '2024', location: 'N/A' }
+  },
   // 1. Ashiana Amodh
   {
     id: '1',
@@ -186,10 +259,11 @@ export const PROJECTS: Project[] = [
     count: 15,
     duration: 102,
     image: atmosphereCover,
-    video: atmosphereVideo,
+    video: null,
     gallery: [atmosphereCover],
     alt: 'Atmosphere commercial campaign capturing architectural ambiance and lifestyle',
     description: 'Expansive commercial direction highlighting luxury retail architecture, daylight interaction, and curated consumer experience.',
+    shortDescription: 'Retail : Post production',
     meta: {
       camera: 'ARRI Alexa Mini LF',
       lens: 'Cooke S4/i 32mm',
@@ -204,7 +278,7 @@ export const PROJECTS: Project[] = [
   {
     id: '3',
     slug: 'avicore-1',
-    name: 'Avicore 1',
+    name: 'Avicore',
     client: 'Avicore Dynamics',
     shortDescription: 'Home Cinema · Shoot & Edit',
     type: 'motion',
@@ -216,6 +290,7 @@ export const PROJECTS: Project[] = [
     gallery: [avicore1Cover],
     alt: 'Avicore motion showcase exploring tactile craft and modern visual energy',
     description: 'High-octane visual identity piece exploring precision performance, kinetic momentum, and modern digital craft.',
+    shortDescription: 'Home Cinema : Shoot & Edit',
     meta: {
       camera: 'RED Komodo 6K',
       lens: 'Canon Cine-Servo 17-120mm',
@@ -230,7 +305,7 @@ export const PROJECTS: Project[] = [
   {
     id: '4',
     slug: 'avicore-2',
-    name: 'Avicore 2',
+    name: 'Avicore',
     client: 'Avicore Dynamics',
     shortDescription: 'Home Cinema · Shoot & Edit',
     type: 'motion',
@@ -238,10 +313,11 @@ export const PROJECTS: Project[] = [
     count: 12,
     duration: 32,
     image: avicore2Cover,
-    video: avicore2Video,
+    video: null,
     gallery: [avicore2Cover],
     alt: 'Avicore 2 creative direction and cinematic brand campaign',
     description: 'An immersive cinematic brand narrative showcasing modern tailoring, evocative lighting, and focused pacing.',
+    shortDescription: 'Home Cinema : Shoot & Edit',
     meta: {
       camera: 'Sony FX6',
       lens: 'Sony GM 24-70mm f/2.8',
@@ -256,7 +332,7 @@ export const PROJECTS: Project[] = [
   {
     id: '5',
     slug: 'avicore-3',
-    name: 'Avicore 3',
+    name: 'Avicore',
     client: 'Avicore Dynamics',
     shortDescription: 'AVCore · Shoot & Edit',
     type: 'motion',
@@ -268,6 +344,7 @@ export const PROJECTS: Project[] = [
     gallery: [avicore3Cover],
     alt: 'Avicore 3 dynamic editorial short exploring form and rhythm',
     description: 'Fluid choreography meets high-contrast cinematography in a focused exploration of human silhouette and form.',
+    shortDescription: 'Shoot & Edit',
     meta: {
       camera: 'Leica SL2-S',
       lens: 'APO-Summicron-SL 50mm',
@@ -282,7 +359,7 @@ export const PROJECTS: Project[] = [
   {
     id: '6',
     slug: 'avicore-4',
-    name: 'Avicore 4',
+    name: 'Avicore',
     client: 'Avicore Dynamics',
     shortDescription: 'AVCore · Shoot & Edit',
     type: 'motion',
@@ -294,6 +371,7 @@ export const PROJECTS: Project[] = [
     gallery: [avicore4Cover],
     alt: 'Avicore 4 concluding high-impact cinematic visual vignette',
     description: 'Expressive framing, bold saturation, and contemporary visual syntax highlighting avant-garde urban motion.',
+    shortDescription: 'Shoot & Edit',
     meta: {
       camera: 'ARRI Amira',
       lens: 'Zeiss Super Speed 25mm T1.3',
@@ -320,6 +398,7 @@ export const PROJECTS: Project[] = [
     gallery: [cafeCover],
     alt: 'Culinary motion sizzle reel and cafe ambience tour',
     description: 'Dynamic pacing, culinary artistry, and vibrant restaurant hospitality captured on film.',
+    shortDescription: 'Shoot',
     meta: {
       camera: 'Phantom Flex4K',
       lens: 'Laowa 24mm T14 2X PeriProbe',
@@ -345,6 +424,7 @@ export const PROJECTS: Project[] = [
     gallery: [fiddlecraftCover],
     alt: 'Fiddlecraft musical and cultural motion production',
     description: 'Electrifying musical performance and rhythmic visuals documenting stage energy and acoustic craft.',
+    shortDescription: 'Motion Graphics',
     meta: {
       camera: 'Sony FX9',
       lens: 'Fujinon MK 18-55mm T2.9',
@@ -366,11 +446,12 @@ export const PROJECTS: Project[] = [
     count: 20,
     duration: 30,
     image: starfishCover,
-    video: starfishVideo,
+    video: null,
     isReel: true,
     gallery: [starfishCover],
     alt: 'Starfish Showreel dynamic motion showcase',
     description: 'A bold showcase of high-impact visual storytelling, creative direction, and seamless cinematography.',
+    shortDescription: 'In film Graphics/ Art properties design',
     meta: {
       camera: 'ARRI Alexa 35',
       lens: 'Cooke Panchro/i Classic 32mm',
@@ -392,10 +473,11 @@ export const PROJECTS: Project[] = [
     count: 14,
     duration: 25,
     image: titanCover,
-    video: titanVideo,
+    video: null,
     gallery: [titanCover],
     alt: 'Titan premium commercial timepiece and lifestyle campaign',
     description: 'Precision craftsmanship, elegant reflections, and timeless cinematic aesthetics for Titan.',
+    shortDescription: 'Skin retouching, Agency : Kinnect',
     meta: {
       camera: 'ARRI Alexa Mini LF',
       lens: 'Master Anamorphic 50mm',

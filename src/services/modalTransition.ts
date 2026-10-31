@@ -18,3 +18,12 @@ export const setModalTransitionActive = (active: boolean, durationMs = 1200): vo
 export const isModalTransitionActive = (): boolean => {
   return modalTransitionActive;
 };
+
+export const resetModalTransition = (): void => {
+  modalTransitionActive = false;
+  if (transitionTimer) {
+    clearTimeout(transitionTimer);
+    transitionTimer = null;
+  }
+};
+

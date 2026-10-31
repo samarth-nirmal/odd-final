@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { STUDIO_INFO, TEAM_MEMBERS } from '../data/projects';
-import { isModalTransitionActive } from '../services/modalTransition';
+import { isModalTransitionActive, resetModalTransition } from '../services/modalTransition';
 import logoYellow from '../assets/Logo/logo-yellow.png';
+import logoTransparent from '../assets/Logo/logo transparent.png';
 import founderImage from '../assets/Founder/founder1.jpg';
 
 interface StudioModalProps {
@@ -76,6 +77,7 @@ export const StudioModal: React.FC<StudioModalProps> = ({
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.key === 'Escape' || e.key === 'Backspace') && isOpen) {
+        resetModalTransition();
         onClose();
       }
     };
@@ -128,10 +130,19 @@ export const StudioModal: React.FC<StudioModalProps> = ({
             initial="initial"
             animate="animate"
             exit="exit"
+            className="fixed inset-0 pointer-events-auto flex flex-col justify-between px-6 sm:px-12 md:px-16 lg:px-24 xl:px-32 2xl:px-40 pt-24 sm:pt-28 pb-12 overflow-y-auto select-none"
             style={{ willChange: 'transform', zIndex: zIndex + 5 }}
-            className="fixed inset-0 pointer-events-auto flex flex-col justify-between bg-[#0e0e0e] px-6 sm:px-12 md:px-16 lg:px-24 xl:px-32 2xl:px-40 pt-24 sm:pt-28 pb-12 overflow-y-auto select-none"
-            onClick={onClose}
+            onClick={() => { resetModalTransition(); onClose(); }}
           >
+            {/* Background Layers */}
+            <div className="absolute inset-0 -z-10 bg-[#0e0e0e]">
+              <div className="absolute inset-0 backdrop-blur-xl" />
+              <div
+                className="absolute inset-0 bg-no-repeat bg-center bg-cover opacity-25"
+                style={{ backgroundImage: `url(${logoTransparent})` }}
+              />
+              <div className="absolute inset-0 bg-black/50" />
+            </div>
           <div
             className="max-w-5xl w-full mx-auto my-auto py-4 text-[#fcf8ef] flex flex-col items-center gap-8 md:gap-10"
             onClick={(e) => e.stopPropagation()}
@@ -185,15 +196,22 @@ export const StudioModal: React.FC<StudioModalProps> = ({
                 transition={{ duration: 1.1, delay: 0.85, ease: [0.16, 1, 0.3, 1] }}
                 className="w-full sm:w-72 md:w-80 shrink-0 flex flex-col gap-3 md:-mt-12"
               >
-                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-sm bg-neutral-900 border border-white/10 hover:border-[#FF9B00]/40 transition-colors shadow-2xl">
-                  <img
-                    src={founderImage}
-                    alt={founder?.name || 'Founder'}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover grayscale contrast-105 hover:grayscale-0 transition-all duration-500"
-                  />
-                </div>
+                <a
+                  href="https://omkarjanvekar.my.canva.site/portfolio"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full"
+                >
+                  <div className="relative aspect-[4/5] w-full overflow-hidden rounded-sm bg-neutral-900 border border-white/10 hover:border-[#FF9B00]/40 transition-colors shadow-2xl">
+                    <img
+                      src={founderImage}
+                      alt={founder?.name || 'Founder'}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover grayscale contrast-105 hover:grayscale-0 transition-all duration-500"
+                    />
+                  </div>
+                </a>
                 <div className="flex flex-col text-xs font-mono pt-1 gap-0.5">
                   <span className="text-[#fcf8ef] uppercase font-bold tracking-wider">
                     {founder?.name || 'Omkar Janvekar'}

@@ -177,7 +177,7 @@ const SliderCardMedia: React.FC<{
         />
       )}
 
-      {/* Short description overlay — bottom-left, shown when video is playing */}
+      {/* Short description overlay ï¿½ bottom-left, shown when video is playing */}
       {project.shortDescription && isVideoActive && isActive && !isDragging && !paused && (
         <div className="absolute bottom-4 left-4 z-20 pointer-events-none">
           <div className="bg-black/75 px-3 py-1.5 rounded-sm">
